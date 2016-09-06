@@ -1,6 +1,4 @@
-#include <sys/epoll.h>
-
-static int epfd;
+#include "zxz.h"
 
 int zxz_init()
 {

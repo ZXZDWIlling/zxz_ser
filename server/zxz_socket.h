@@ -1,9 +1,10 @@
 #ifndef _ZXZ_SOCKET_H
 #define _ZXZ_SOCKET_H
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <sys/types.h>  
 #include <sys/socket.h>
-#include <stdlib.h>
 #include <errno.h>
 #include <unistd.h>
 
