@@ -91,3 +91,28 @@ void zxz_list_printf(zxz_list *head)
 	}
 }
 
+zxz_list *zxz_list_iterator(zxz_list *head)
+{
+	return head;
+}
+
+zxz_list *zxz_list_begin(zxz_list *head)
+{
+	return head;
+}
+	
+zxz_list *zxz_list_end(zxz_list *head)
+{
+	zxz_list *pend;
+	pend = head;
+	while((pend = pend->next) != NULL);
+	return pend;
+}
+
+
+
+
+
+
+
+

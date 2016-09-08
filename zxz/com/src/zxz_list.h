@@ -16,7 +16,9 @@ zxz_list *zxz_list_add(zxz_list *head, void *data);
 zxz_list *zxz_list_del(zxz_list *head, const void *data);
 zxz_list *zxz_list_destory(zxz_list *head);
 void zxz_list_printf(zxz_list *head);
-
+zxz_list *zxz_list_iterator(zxz_list *head);
+zxz_list *zxz_list_begin(zxz_list *head);
+zxz_list *zxz_list_end(zxz_list *head);
 #endif
 
 #if 0

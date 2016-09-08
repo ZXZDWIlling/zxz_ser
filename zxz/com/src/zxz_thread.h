@@ -18,7 +18,7 @@ typedef struct zxz_thread_t
 	void *parg;
 }zxz_thread;
 
-int zxz_thread_create(zxz_thread *thr, int id);
+zxz_thread *zxz_thread_create(zxz_thread *thr, int id);
 void *zxz_thread_start(void *arg);
 void zxz_thread_wait(zxz_thread *thr);
 void zxz_thread_work(zxz_thread *thr, void(*fun)(void *arg), void *arg, ssize_t size);
