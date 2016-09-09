@@ -19,7 +19,7 @@ zxz_list *zxz_list_add(zxz_list *head, void *data)
 	pTmp->data = data;
 	pTmp->next = NULL;
 	if (head == NULL || data == NULL){
-		printf("zxz_list_init\n");
+		printf("error: zxz_list_init\n");
 		return NULL;
 	}
 	pNet = head->next;
@@ -42,7 +42,7 @@ zxz_list *zxz_list_del(zxz_list *head, const void *data)
 	zxz_list *pCur;
 	zxz_list *pTmp;
 	if (head == NULL || data == NULL){
-		printf("zxz_list_del\n");
+		printf("error: zxz_list_del\n");
 		return NULL;
 	}
 	pNet = head->next;
@@ -69,7 +69,7 @@ zxz_list *zxz_list_destory(zxz_list *head)
 	zxz_list *pNet;
 	zxz_list *pTmp;
 	if (head == NULL){
-		printf("zxz_list_init\n");
+		printf("error: zxz_list_destory\n");
 		return NULL;
 	}
 	pNet = head->next;

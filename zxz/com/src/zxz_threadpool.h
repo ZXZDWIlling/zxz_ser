@@ -20,6 +20,7 @@ struct epoll_event ep[1024];
 void zxz_threadpool_manager_create();
 int zxz_threadpool_create(int size);
 zxz_thread *zxz_threadpool_findbyfd0(int fd0);
+void zxz_threadpool_waitingthread_run(void (*pfun)(void *), void *arg, ssize_t size);
 void *zxz_threadpool_agent(void *);
 
 #endif

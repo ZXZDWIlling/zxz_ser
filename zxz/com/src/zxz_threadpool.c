@@ -1,5 +1,10 @@
 #include "zxz_threadpool.h"
-
+#if 1
+void test(void *agr)
+{
+	printf("hello\n");
+}
+#endif
 void zxz_threadpool_manager_create()
 {
 	pthread_t tid;
@@ -47,7 +52,24 @@ zxz_thread *zxz_threadpool_findbyfd0(int fd0)
 	return pthr;
 }
 
-#if 1
+void zxz_threadpool_waitingthread_run(void (*pfun)(void *), void *arg, ssize_t size)
+{
+	zxz_list *pwait = zxz_list_begin(pool.thr_wait);
+	pwait = pwait->next;
+	zxz_thread *p = (zxz_thread *)pwait->data;
+//	printf("id=%d\n", p->id);
+//	printf("run\n");
+	if(pwait != NULL)
+	{
+	//	printf("not NULL\n");
+	//	count++;
+		zxz_thread_work(p, pfun, arg, size);
+		pool.thr_work = zxz_list_add(pool.thr_work, p);
+		pool.thr_wait = zxz_list_del(pool.thr_wait, p);
+	}
+}
+
+#if 0
 void test(void *agr)
 {
 	printf("hello\n");
@@ -71,7 +93,7 @@ void *zxz_threadpool_agent(void *arg)
 				if((pthr = zxz_threadpool_findbyfd0(fd)) != NULL)
 				{
 					pool.thr_wait = zxz_list_add(pool.thr_wait, pthr);
-					zxz_thread_work(pthr, test, NULL, 0);
+//					zxz_thread_work(pthr, test, NULL, 0);
 					epoll_ctl(epfd, EPOLL_CTL_DEL, pthr->fd0, NULL);
 				}
 			}
@@ -89,9 +111,11 @@ int main()
 	return 0;
 }
 #endif
+#if 0
 int main()
 {
 	zxz_threadpool_create(5);
 	pthread_exit(NULL);
 	return 0;
 }
+#endif
