@@ -103,13 +103,30 @@ zxz_list *zxz_list_begin(zxz_list *head)
 	
 zxz_list *zxz_list_end(zxz_list *head)
 {
-	zxz_list *pend;
-	pend = head;
+	zxz_list *pend = head;
+	if(pend == NULL)
+		return NULL;
 	while((pend = pend->next) != NULL);
 	return pend;
 }
 
-
+int zxz_list_contain(zxz_list *head, void *data)
+{
+	int ret = 0;
+	zxz_list *p;
+	if(head == NULL)
+		return ret;
+	p = head;
+	while((p = p->next) != NULL)
+	{
+		if(p->data == data)
+		{
+			ret = 1;
+			break;
+		}
+	}
+	return ret;
+}
 
 
 

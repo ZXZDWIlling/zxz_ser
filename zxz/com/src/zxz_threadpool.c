@@ -1,5 +1,5 @@
 #include "zxz_threadpool.h"
-#if 1
+#if 0
 void test(void *agr)
 {
 	printf("hello\n");
@@ -93,6 +93,15 @@ void *zxz_threadpool_agent(void *arg)
 				if((pthr = zxz_threadpool_findbyfd0(fd)) != NULL)
 				{
 					pool.thr_wait = zxz_list_add(pool.thr_wait, pthr);
+					if(zxz_list_contain(pool.thr_work, pthr))
+					{
+						printf("contain\n");
+						zxz_list_del(pool.thr_work, pthr);
+					}
+					else 
+					{
+						printf("not contain\n");
+					}
 //					zxz_thread_work(pthr, test, NULL, 0);
 					epoll_ctl(epfd, EPOLL_CTL_DEL, pthr->fd0, NULL);
 				}

@@ -3,7 +3,7 @@
 
 #include "zxz_thread.h"
 #include "zxz_list.h"
-#include <sys/epoll.h>
+#include "zxz.h"
 
 typedef struct zxz_threadpool_t
 {
@@ -14,8 +14,6 @@ typedef struct zxz_threadpool_t
 }zxz_threadpool;
 
 zxz_threadpool pool;
-int epfd;
-struct epoll_event ep[1024];
 
 void zxz_threadpool_manager_create();
 int zxz_threadpool_create(int size);

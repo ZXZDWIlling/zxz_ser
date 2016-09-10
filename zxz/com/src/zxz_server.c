@@ -1,6 +1,12 @@
 #include "zxz_server.h"
 #include "zxz_threadpool.h"
 
+
+void zxz_tcpserver_init(int thread_count)
+{
+	zxz_threadpool_create(thread_count);
+}
+
 int zxz_tcpserver_start()
 {
 //	printf("start\n");
@@ -39,18 +45,22 @@ zxz_tcpclient zxz_tcpserver_accept(int listenfd)
 
 #if 0
 #include <stdio.h>
+#include <unistd.h>
 void ser_do(void *arg)
 {
-	printf("ser_do\n");
+	char buf[128];
+	int len;
+	zxz_tcpclient *p;
+	if(arg != NULL)
+		p = (zxz_tcpclient *)arg;
+	len = read(p->connfd, buf, sizeof(buf));
+	write(STDOUT_FILENO, buf, len);
 }
 #endif
 
-void zxz_tcpserver_run(void (*pfun)(void *))
+void zxz_tcpserver_run(int listenfd, void (*pfun)(void *))
 {
-	int listenfd;
 	zxz_tcpclient client;
-	zxz_threadpool_create(5);
-	listenfd = zxz_tcpserver_start();
 	for(;;)
 	{
 		client = zxz_tcpserver_accept(listenfd);
@@ -64,6 +74,9 @@ void zxz_tcpserver_run(void (*pfun)(void *))
 #if 0
 int main()
 {
-	zxz_tcpserver_run(ser_do);
+	int listenfd;
+	zxz_tcpserver_init(5);
+	listenfd = zxz_tcpserver_start();
+	zxz_tcpserver_run(listenfd, ser_do);
 }
 #endif

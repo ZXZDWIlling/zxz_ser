@@ -13,9 +13,10 @@ typedef struct _zxz_tcpclient
 	struct sockaddr_in addr_cli;
 }zxz_tcpclient;
 
+void zxz_tcpserver_init(int thread_count);
 int zxz_tcpserver_start();
 zxz_tcpclient zxz_tcpserver_accept(int listenfd);
-void zxz_tcpserver_run(void (*pfun)(void *));
+void zxz_tcpserver_run(int listenfd, void (*pfun)(void *));
 
 #endif
 

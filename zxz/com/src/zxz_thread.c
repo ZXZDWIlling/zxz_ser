@@ -1,4 +1,4 @@
-#include "zxz_threadpool.h"
+#include "zxz_thread.h"
 //#include <stdio.h>
 
 zxz_thread *zxz_thread_create(zxz_thread *thr, int id)
@@ -47,12 +47,16 @@ void zxz_thread_work(zxz_thread *thr, void (*fun)(void *), void *arg, ssize_t si
 {
 	char c;
 	thr->pfun = fun;	
+	struct epoll_event event;
 	if(size > 0 && arg != NULL)
 	{
 		thr->parg = malloc(size);
 		memcpy(thr->parg, arg, size);
 	}
 	write(thr->fd0, "z", 1);
+	event.events = EPOLLIN;
+	event.data.fd = thr->fd0;
+	epoll_ctl(epfd, EPOLL_CTL_ADD, thr->fd0, &event);
 	read(thr->fd0, &c, 1);
 }
 
